@@ -1,3 +1,28 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <string>
+#include <set>
+#include <climits>
+#include <queue>
+#include <map>
+#include <unordered_map>
+ 
+#define min(x,y) ((x<y) ? x : y)
+#define max(x,y) ((x>y) ? x : y)
+
+#define N 100001
+#define mod 1000000007
+#define pb push_back
+#define mp make_pair
+#define vi vector<int>
+#define INF 1000000000
+ 
+using namespace std;
+
 class Solution {
 public:
 

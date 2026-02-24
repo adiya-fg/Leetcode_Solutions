@@ -10,7 +10,8 @@
 #include <queue>
 #include <map>
 #include <unordered_map>
- 
+#include <unordered_set> 
+
 #define min(x,y) ((x<y) ? x : y)
 #define max(x,y) ((x>y) ? x : y)
 
@@ -28,6 +29,7 @@ public:
 
     // global string holder
     string ans="";
+    // use it as caching purpose only.
     unordered_set <string> memo;
     
     void solver(string str){
@@ -40,8 +42,8 @@ public:
         int n = str.size();
         string tempMax = str;
 
-        // preprocessing.
-        // scan to find all possible special substrings
+        // pre processing.
+        // scan to find and store all possible special substrings temporarily.
         vector<vector<int>> started(n,vector<int>{}), ended(n,vector<int>{});
         for(int i=0; i<n; i++) {
             int count1=0, count0=0;
@@ -49,7 +51,7 @@ public:
                 if(str[j]=='1') count1++;
                 else count0++;
                 if(count1<count0) break;
-                // the string is special.
+                // found a the string is special.
                 if(count0==count1) {
                     started[i].push_back(j-i+1);     
                     ended[j].push_back(j-i+1);           

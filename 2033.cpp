@@ -3,8 +3,10 @@ public:
     int minOperations(vector<vector<int>>& grid, int x) {
         
         vector <int> nums;
+        //edge case
         if(grid.size()==1 && grid[0].size()==1) return 0;
 
+        // check possibility of making all elements equal.
         auto checkPossibilty = [&]() -> bool {
             int diff;
             int min_val = grid[0][0];
@@ -18,7 +20,6 @@ public:
             return true;
         };
 
-
         if(checkPossibilty()==false) return -1;
 
         // sort
@@ -27,6 +28,8 @@ public:
         int n = nums.size();
         vector<int> sum;
         sum.resize(n,0);
+
+        // build prefix sum.
         sum[0]=nums[0];
         for(int i=1; i<n; i++) {
             sum[i] = sum[i-1]+nums[i];
@@ -35,6 +38,7 @@ public:
         int ans = INT_MAX;
 
         for(int i=0; i<n; i++) {
+            // set a threshold at the nums[i] and then calculate number of steps that needed to.
             int diff1 = (i+1)*nums[i] - sum[i];
             diff1/=x;
             int diff2 = (sum[n-1]  - sum[i]) - (n - i - 1)*nums[i];

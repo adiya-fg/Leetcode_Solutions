@@ -5,6 +5,7 @@
 #include <set>
 #include <iostream>
 #include <unordered_map>
+#include <unordered_set>
 
 #define pb push_back
 
@@ -16,6 +17,8 @@ struct DoubleLinkedList {
 };
 
 unordered_map<int,pair<DoubleLinkedList*,DoubleLinkedList*>> mp;
+unordered_map<int,DoubleLinkedList*> mapToRoot;
+unordered_set<DoubleLinkedList*> allLists;
 
 int n;
 int x,y;
@@ -27,15 +30,17 @@ int main() {
     while( temp-- ){
         cin>>x>>y;
         // x goes to front of y person.
-        vector<DoubleLinkedList *> neighborsX = {nullptr,nullptr};
+        // find x and remove it from old position.
+        vector<DoubleLinkedList *> personX = {nullptr,nullptr};
         if(mp.find(x)!=mp.end()) {
-            neighborsX[0] = mp[x].first;
-            neighborsX[1] = mp[x].second;
+            personX[0] = mp[x].first;
+            personX[1] = mp[x].second;
         }
-        vector<DoubleLinkedList *> neighborsY = {nullptr,nullptr};
+        // find the current position of y and the add x to front of it.
+        vector<DoubleLinkedList *> personY = {nullptr,nullptr};
         if(mp.find(y)!=mp.end()) {
-            neighborsY[0] = mp[y].first;
-            neighborsY[1] = mp[y].second;
+            personY[0] = mp[y].first;
+            personY[1] = mp[y].second;
         }
     }
 
@@ -45,7 +50,12 @@ int main() {
     int val;
     while(Q--){
         cin>>qStr>>val;
-        cout<<val<<endl;
+        ///find position of the person 
+        if(qStr[0]=='P') {
+
+        } else {
+
+        }
     }
 
     return 0;

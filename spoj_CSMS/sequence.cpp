@@ -12,16 +12,32 @@
 using namespace std;
 
 struct DoubleLinkedList {
-    int val;
-    DoubleLinkedList * prev, * next;
+    int data;
+    int rootLoc;
+    DoubleLinkedList * prev;
+    DoubleLinkedList * next;
+    DoubleLinkedList(int val) {
+        data = val;
+        prev = nullptr;
+        next = nullptr;
+        rootLoc = 0;
+    }
 };
 
-unordered_map<int,pair<DoubleLinkedList*,DoubleLinkedList*>> mp;
+unordered_map<int,DoubleLinkedList*> prevElem, nextElem;
 unordered_map<int,DoubleLinkedList*> mapToRoot;
 unordered_set<DoubleLinkedList*> allLists;
 
 int n;
 int x,y;
+
+void removeCurrent(vector<DoubleLinkedList *> neighbors) {
+    // case: TT
+
+    //////////////
+
+
+}
 
 int main() {
 
@@ -29,13 +45,42 @@ int main() {
     int temp = n;
     while( temp-- ){
         cin>>x>>y;
-        // x goes to front of y person.
-        // find x and remove it from old position.
+
+        // find X's location and remove it from old position.
         vector<DoubleLinkedList *> personX = {nullptr,nullptr};
-        if(mp.find(x)!=mp.end()) {
-            personX[0] = mp[x].first;
-            personX[1] = mp[x].second;
+        if(prevElem.find(x)!=prevElem.end()) {
+            personX[0] = prevElem[x];        
         }
+        if(nextElem.find(x)!=nextElem.end()) {
+            personX[1] = nextElem[x];        
+        }
+        DoubleLinkedList * newRoot;
+        DoubleLinkedList * newTail;
+        // create new linked list
+        if(personX[0]==nullptr) {
+            newRoot = new DoubleLinkedList(x-1);
+            if(personX[1]==nullptr) {
+                newTail = new DoubleLinkedList(x+1);
+            } else {
+                newTail = personX[1];
+            }
+            newRoot ->next = newTail;
+            newTail -> prev = newRoot;
+            allLists.insert(newRoot);
+        } else {
+            //update already created a linked list.
+            newRoot = personX[0];
+            newTail = personX[1];
+            // find next element of it and connect them.
+            if(newTail==nullptr) {
+
+            } else{
+                newRoot ->next = newTail;
+                newTail -> prev = newRoot;                
+            }
+        }
+
+
         // find the current position of y and the add x to front of it.
         vector<DoubleLinkedList *> personY = {nullptr,nullptr};
         if(mp.find(y)!=mp.end()) {

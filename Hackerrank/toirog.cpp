@@ -8,7 +8,9 @@ using namespace std;
 
 int main() {
 
-
+    cout<<"TIL HAMINGJU MED AFMAELID FORRITUNARKEPPNI FRAMHALDSSKOLANNA!"<<endl;
+    return 0;
+}
     long long n,l; cin>>n>>l;
 
     long long  ans=0;

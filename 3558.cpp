@@ -2,15 +2,11 @@ class Solution {
 public:
     int mod = 1e9+7;
     vector<int> adj[100001];
+    vector<long long > pw;
 
-    // finding maximum depth from the tree.
-    int maxDepth(int parent, int u) {
-        int res = 0;
-        for(auto child: adj[u]) {
-            if(child==parent) continue;
-            res=max(res,(int)maxDepth(u,child));
-        }
-        return res+1;
+    // build a rooted from node 1.
+    int dfs(int parent, int u) {
+
     }
 
     int assignEdgeWeights(vector<vector<int>>& edges) {
@@ -18,41 +14,24 @@ public:
         
         int n = edges.size();
 
-        auto calc = [&](long long  a, long long  b) {
-            long long ans=a%mod;
-            int pw = mod-2;
-            while(pw){
-                if(pw%2==1) {
-                    ans = (ans*b)%mod;
-                }
-                b=(b*b)%mod;
-                pw/=2;
-            }    
-            return ans;
-        };
-
+        // crete connections
         for(auto nodes: edges) {
             adj[nodes[0]].push_back(nodes[1]);
             adj[nodes[1]].push_back(nodes[0]);
         }
 
-        int path = maxDepth(0,1)-1;
-        long long res=path;
+        // create rooted tree
+        dfs(0,1);
 
-        cout<<path<<endl;
-
-        vector<long long> fact;
-        fact.resize(n+1,1);
-
-        for(int i=2; i<=n; i++) {
-            fact[i] = (fact[i-1]*i)%mod;
+        // pre process
+        pw.resize(n+1,0);
+        pw[0]=1;
+        for(int i=1; i<=n; i++) {
+            pw[i] = (pw[i-1] * 2)%mod;
         }
 
-        for(int i=3; i<=path; i+=2) {
-            long long a = fact[path];
-            long long b = (fact[i]*fact[path-i])%mod;
-            res = (res + calc(a,b))%mod;
-        }
+        long long res=1;
+
 
         return res;
     }
